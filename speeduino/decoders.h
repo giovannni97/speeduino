@@ -40,6 +40,7 @@
 #define DECODER_RENIX             24
 #define DECODER_ROVERMEMS		      25
 #define DECODER_SUZUKI_K6A        26
+#define DECODER_XTZ               27
 
 #define BIT_DECODER_2ND_DERIV           0 //The use of the 2nd derivative calculation is limited to certain decoders. This is set to either true or false in each decoders setup routine
 #define BIT_DECODER_IS_SEQUENTIAL       1 //Whether or not the decoder supports sequential operation
@@ -248,6 +249,13 @@ void triggerSec_SuzukiK6A(void);
 uint16_t getRPM_SuzukiK6A(void);
 int getCrankAngle_SuzukiK6A(void);
 void triggerSetEndTeeth_SuzukiK6A(void);
+
+void triggerSetup_XTZ(void);
+void triggerPri_XTZ(void);
+void triggerSec_XTZ(void);
+uint16_t getRPM_XTZ(void);
+int getCrankAngle_XTZ(void);
+void triggerSetEndTeeth_XTZ(void);
 
 
 
