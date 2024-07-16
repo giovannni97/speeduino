@@ -352,6 +352,11 @@ float getReadableFloatLogEntry(uint16_t logIndex)
     case 55: statusValue = currentStatus.PW3 / 1000.0; break; //Pulsewidth 3 Have to convert from uS to mS.
     case 56: statusValue = currentStatus.PW4 / 1000.0; break; //Pulsewidth 4 Have to convert from uS to mS.
 
+    case 91: statusValue = gpsOBJ.location.lat(); break;
+    case 92: statusValue = gpsOBJ.location.lng(); break;
+    case 93: statusValue = gpsOBJ.altitude.meters(); break;
+    case 94: statusValue = gpsOBJ.speed.kmph(); break;
+
     default: statusValue = getReadableLogEntry(logIndex); break; //If logIndex value is NOT a float based one, use the regular function
   }
 

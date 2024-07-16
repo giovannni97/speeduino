@@ -105,11 +105,11 @@ constexpr char header_87[] PROGMEM = "EMAP";
 constexpr char header_88[] PROGMEM = "Fan Duty";
 constexpr char header_89[] PROGMEM = "AirConStatus";
 constexpr char header_90[] PROGMEM = "Dwell Actual";
+constexpr char header_91[] PROGMEM = "GPS_Latitude";
+constexpr char header_92[] PROGMEM = "GPS_Longitude";
+constexpr char header_93[] PROGMEM = "GPS_Altitude";
+constexpr char header_94[] PROGMEM = "GPS_Speed";
 /*
-constexpr char header_91[] PROGMEM = "";
-constexpr char header_92[] PROGMEM = "";
-constexpr char header_93[] PROGMEM = "";
-constexpr char header_94[] PROGMEM = "";
 constexpr char header_95[] PROGMEM = "";
 constexpr char header_96[] PROGMEM = "";
 constexpr char header_97[] PROGMEM = "";
@@ -230,11 +230,11 @@ constexpr const char* header_table[] PROGMEM = {  header_0,\
                                               header_88,\
                                               header_89,\
                                               header_90,\
-                                              /*
                                               header_91,\
                                               header_92,\
                                               header_93,\
                                               header_94,\
+                                              /*
                                               header_95,\
                                               header_96,\
                                               header_97,\
@@ -264,7 +264,7 @@ constexpr const char* header_table[] PROGMEM = {  header_0,\
                                               header_121,\
                                               */
                                             };
-#define SD_LOG_NUM_FIELDS   91 /**< The number of fields that are in the log. This is always smaller than the entry size due to some fields being 2 bytes */
+#define SD_LOG_NUM_FIELDS   95 /**< The number of fields that are in the log. This is always smaller than the entry size due to some fields being 2 bytes */
 
 static_assert(sizeof(header_table) == (sizeof(char*) * SD_LOG_NUM_FIELDS), "Number of header table titles must match number of log fields");
 
