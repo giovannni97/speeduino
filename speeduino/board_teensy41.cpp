@@ -26,7 +26,7 @@ void initBoard()
     ***********************************************************************************************************
     * General
     */
-   pSecondarySerial = &Serial2;
+   //pSecondarySerial = &SerialUSB;
 
     /*
     Idle + Boost + VVT use the PIT timer. THIS IS ALSO USED BY THE INTERVAL TIMER THAT CALLS THE 1MS LOW RES TIMER!

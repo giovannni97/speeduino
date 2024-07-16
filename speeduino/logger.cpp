@@ -106,18 +106,33 @@ byte getTSLogEntry(uint16_t byteNum)
     case 59: statusValue = highByte(currentStatus.canin[8]); break;
     case 60: statusValue = lowByte(currentStatus.canin[9]); break;
     case 61: statusValue = highByte(currentStatus.canin[9]); break;
-    case 62: statusValue = lowByte(currentStatus.canin[10]); break;
-    case 63: statusValue = highByte(currentStatus.canin[10]); break;
-    case 64: statusValue = lowByte(currentStatus.canin[11]); break;
-    case 65: statusValue = highByte(currentStatus.canin[11]); break;
-    case 66: statusValue = lowByte(currentStatus.canin[12]); break;
-    case 67: statusValue = highByte(currentStatus.canin[12]); break;
-    case 68: statusValue = lowByte(currentStatus.canin[13]); break;
-    case 69: statusValue = highByte(currentStatus.canin[13]); break;
-    case 70: statusValue = lowByte(currentStatus.canin[14]); break;
-    case 71: statusValue = highByte(currentStatus.canin[14]); break;
-    case 72: statusValue = lowByte(currentStatus.canin[15]); break;
-    case 73: statusValue = highByte(currentStatus.canin[15]); break;
+    #if defined(GPS)
+      case 62: statusValue = lowByte(lat_H); break;
+      case 63: statusValue = highByte(lat_H); break;
+      case 64: statusValue = lowByte(lat_L); break;
+      case 65: statusValue = highByte(lat_L); break;
+      case 66: statusValue = lowByte(long_H); break;
+      case 67: statusValue = highByte(long_H); break;
+      case 68: statusValue = lowByte(long_L); break;
+      case 69: statusValue = highByte(long_L); break;
+      case 70: statusValue = lowByte(altitude); break;
+      case 71: statusValue = highByte(altitude); break;
+      case 72: statusValue = lowByte(gpsSpeed); break;
+      case 73: statusValue = highByte(gpsSpeed); break;
+    #else
+      case 62: statusValue = lowByte(currentStatus.canin[10]); break;
+      case 63: statusValue = highByte(currentStatus.canin[10]); break;
+      case 64: statusValue = lowByte(currentStatus.canin[11]); break;
+      case 65: statusValue = highByte(currentStatus.canin[11]); break;
+      case 66: statusValue = lowByte(currentStatus.canin[12]); break;
+      case 67: statusValue = highByte(currentStatus.canin[12]); break;
+      case 68: statusValue = lowByte(currentStatus.canin[13]); break;
+      case 69: statusValue = highByte(currentStatus.canin[13]); break;
+      case 70: statusValue = lowByte(currentStatus.canin[14]); break;
+      case 71: statusValue = highByte(currentStatus.canin[14]); break;
+      case 72: statusValue = lowByte(currentStatus.canin[15]); break;
+      case 73: statusValue = highByte(currentStatus.canin[15]); break;
+    #endif
 
     case 74: statusValue = currentStatus.tpsADC; break;
     case 75: statusValue = getNextError(); break;
@@ -247,12 +262,21 @@ int16_t getReadableLogEntry(uint16_t logIndex)
     case 42: statusValue = currentStatus.canin[7]; break;
     case 43: statusValue = currentStatus.canin[8]; break;
     case 44: statusValue = currentStatus.canin[9]; break;
-    case 45: statusValue = currentStatus.canin[10]; break;
-    case 46: statusValue = currentStatus.canin[11]; break;
-    case 47: statusValue = currentStatus.canin[12]; break;
-    case 48: statusValue = currentStatus.canin[13]; break;
-    case 49: statusValue = currentStatus.canin[14]; break;
-    case 50: statusValue = currentStatus.canin[15]; break;
+    #if defined(GPS)
+      case 45: statusValue = lat_H; break;
+      case 46: statusValue = lat_L; break;
+      case 47: statusValue = long_H; break;
+      case 48: statusValue = long_L; break;
+      case 49: statusValue = altitude; break;
+      case 50: statusValue = gpsSpeed; break;
+    #else
+      case 45: statusValue = currentStatus.canin[10]; break;
+      case 46: statusValue = currentStatus.canin[11]; break;
+      case 47: statusValue = currentStatus.canin[12]; break;
+      case 48: statusValue = currentStatus.canin[13]; break;
+      case 49: statusValue = currentStatus.canin[14]; break;
+      case 50: statusValue = currentStatus.canin[15]; break;
+    #endif
     
     case 51: statusValue = currentStatus.tpsADC; break;
     case 52: statusValue = getNextError(); break;

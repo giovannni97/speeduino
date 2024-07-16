@@ -312,6 +312,11 @@ void initialiseAll(void)
       if (configPage9.enable_secondarySerial == 1) { secondarySerial.begin(115200); }
     #endif
 
+    #if defined(GPS)
+      GPSSerial.begin(57600);
+      GPSSerial.setRX(0); //Uso Serial8 sul pin 0
+    #endif
+
     //End all coil charges to ensure no stray sparks on startup
     endCoil1Charge();
     endCoil2Charge();
@@ -1482,7 +1487,7 @@ void setPinMapping(byte boardID)
       pinMAP = A3; //MAP sensor pin
       pinIAT = A0; //IAT sensor pin
       pinCLT = A1; //CLS sensor pin
-      pinO2 = A8; //O2 Sensor pin
+      pinO2 = A9; //O2 Sensor pin
       pinBat = A4; //Battery reference voltage pin
       pinDisplayReset = 48; // OLED reset pin
       pinTachOut = 49; //Tacho output pin  (Goes to ULN2803)
@@ -1526,36 +1531,27 @@ void setPinMapping(byte boardID)
 
       #elif defined(CORE_TEENSY41)
         //These are only to prevent lockups or weird behaviour on T4.1 when this board is used as the default
-        pinBaro = A4; 
-        pinMAP = A5;
-        pinTPS = A3; //TPS input pin
-        pinIAT = A0; //IAT sensor pin
-        pinCLT = A1; //CLS sensor pin
-        pinO2 = A2; //O2 Sensor pin
-        pinBat = A15; //Battery reference voltage pin. Needs Alpha4+
-        pinLaunch = 34; //Can be overwritten below
-        pinVSS = 35;
-        pinSpareTemp2 = A16; //WRONG! Needs updating!!
-        pinSpareTemp2 = A17; //WRONG! Needs updating!!
+        pinCLT = A6;
+        pinO2 = A7;
+        pinEMAP = A10; //EMAP default pin
+        pinIAT = A11; //IAT sensor pin
+        pinStepperEnable = 30; //Enable pin for DRV8825
+        pinStepperStep = 31; //Step pin for DRV8825 driver
+        pinStepperDir = 32; //Direction pin  for DRV8825 driver
+        pinFuelPump = 37; //Fuel pump output  (Goes to ULN2803)
+        pinFan = 36; //Pin for the fan output (Goes to ULN2803)
 
-        pinTrigger = 20; //The CAS pin
-        pinTrigger2 = 21; //The Cam Sensor pin
-        pinTrigger3 = 24;
+        pinTrigger = 28;
+        pinTrigger2 = 29;
 
-        pinStepperDir = 34;
-        pinStepperStep = 35;
+        //PLACEHOLDER OVERRIDE DI SICUREZZA
+        pinVSS = 48; //RESERVED OTHER T4.1 
+        pinWMIEmpty = 48; //RESERVED SD T4.1
+        pinWMIIndicator = 48; //RESERVED SD T4.1
+        pinWMIEnabled = 48; //RESERVED SD T4.1
+
+        //pSecondarySerial = &SerialUSB;
         
-        pinCoil1 = 31;
-        pinCoil2 = 32;
-        pinCoil4 = 29;
-        pinCoil3 = 30;
-
-        pinTachOut = 28;
-        pinFan = 27;
-        pinFuelPump = 33;
-        pinWMIEmpty = 34;
-        pinWMIIndicator = 35;
-        pinWMIEnabled = 36;
       #elif defined(STM32F407xx)
      //Pin definitions for experimental board Tjeerd 
         //Black F407VE wiki.stm32duino.com/index.php?title=STM32F407
@@ -2456,6 +2452,8 @@ void setPinMapping(byte boardID)
         // #ifdef USE_SPI_EEPROM
         //   pinSPIFlash_CS = 33;
         // #endif
+
+        //pSecondarySerial = &SerialUSB;
 
       #endif
 

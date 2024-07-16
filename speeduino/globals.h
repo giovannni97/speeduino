@@ -68,6 +68,13 @@
   #elif defined(__IMXRT1062__)
     #define CORE_TEENSY41
     #define BOARD_H "board_teensy41.h"
+
+    //#define Serial Serial3 //Use BT module on Serial3
+    #define GPS
+    #if defined(GPS)
+      #include <src/TinyGPSPlus-1.0.3/src/TinyGPSPlus.h>
+      #define GPSSerial Serial8
+    #endif
   #endif
   #define INJ_CHANNELS 8
   #define IGN_CHANNELS 8
@@ -1560,5 +1567,19 @@ extern struct table2D o2CalibrationTable; /**< A 32 bin array containing the O2 
 
 bool pinIsOutput(byte pin);
 bool pinIsUsed(byte pin);
+
+#if defined(GPS)
+  extern uint16_t lat_H;
+  extern uint16_t lat_L;
+  extern uint16_t long_H;
+  extern uint16_t long_L;
+  extern uint16_t altitude;
+  extern uint16_t gpsSpeed;
+
+  extern TinyGPSPlus gpsOBJ;
+  extern const uint32_t GPSBaud;
+
+  extern uint32_t GPS_Last_Byte_us;
+#endif
 
 #endif // GLOBALS_H

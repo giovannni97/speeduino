@@ -330,3 +330,17 @@ bool pinIsUsed(byte pin)
 
   return used;
 }
+
+#if defined(GPS)
+  uint16_t lat_H;
+  uint16_t lat_L;
+  uint16_t long_H;
+  uint16_t long_L;
+  uint16_t altitude;
+  uint16_t gpsSpeed = 0;
+
+  TinyGPSPlus gpsOBJ;
+  const uint32_t GPSBaud = 57600;
+
+  uint32_t GPS_Last_Byte_us = 0;
+#endif

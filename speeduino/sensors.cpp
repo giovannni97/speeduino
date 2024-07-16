@@ -877,3 +877,36 @@ uint16_t readAuxdigital(uint8_t digitalPin)
   tempReading = digitalRead(digitalPin); 
   return tempReading;
 } 
+
+#if defined(GPS)
+  void readGPS(void)
+  {
+    while (GPSSerial.available() > 0)
+    {
+      if (gpsOBJ.encode(GPSSerial.read()))
+      {
+        //Logging su AUX out 10...15
+        GPS_Last_Byte_us = micros();
+
+        lat_H = uint16_t(uint32_t((1.0*10e6) * (gpsOBJ.location.lat()+90.0)) >> 16);
+        lat_L = uint16_t(uint32_t((1.0*10e6) * (gpsOBJ.location.lat()+90.0)) & 0xFFFF);
+        long_H = uint16_t(uint32_t((1.0*10e6) * (gpsOBJ.location.lng()+180.0)) >> 16);
+        long_L = uint16_t(uint32_t((1.0*10e6) * (gpsOBJ.location.lng()+180.0)) & 0xFFFF);
+
+        altitude = uint16_t(gpsOBJ.altitude.meters());
+        gpsSpeed = uint16_t(10 * gpsOBJ.speed.kmph());
+      }
+    }
+
+    if(micros()-GPS_Last_Byte_us > 1e6)
+    {
+      //Se riesco a fare un encode da 1 secondo riporto tutto a 0
+      lat_H = 0;
+      lat_L = 0;
+      long_H = 0;
+      long_L = 0;
+      altitude = 0;
+      gpsSpeed = 0;
+    }
+  }
+#endif

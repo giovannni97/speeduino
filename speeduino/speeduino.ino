@@ -117,6 +117,11 @@ void loop(void)
           } 
         }
       #endif
+      
+      #if defined(GPS)
+        readGPS();
+      #endif
+
       #if defined (NATIVE_CAN_AVAILABLE)
         if (configPage9.enable_intcan == 1) // use internal can module
         {            
@@ -304,7 +309,7 @@ void loop(void)
       {
         //TODO dazq to clean this right up :)
         //check through the Aux input channels if enabled for Can or local use
-        for (byte AuxinChan = 0; AuxinChan <16 ; AuxinChan++)
+        for (byte AuxinChan = 0; AuxinChan <10 ; AuxinChan++)
         {
           currentStatus.current_caninchannel = AuxinChan;          
           

@@ -76,4 +76,8 @@ void readBaro(void);
 void readMAP(void);
 void instanteneousMAPReading(void);
 
+#if defined(GPS)
+  void readGPS(void);
+#endif
+
 #endif // SENSORS_H
