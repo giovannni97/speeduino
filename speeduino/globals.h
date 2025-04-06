@@ -69,7 +69,7 @@
     #define CORE_TEENSY41
     #define BOARD_H "board_teensy41.h"
 
-    //#define Serial Serial3 //Use BT module on Serial3
+    #define Serial Serial3 //Use BT module on Serial3
     #define GPS
     #if defined(GPS)
       #include <src/TinyGPSPlus-1.0.3/src/TinyGPSPlus.h>
